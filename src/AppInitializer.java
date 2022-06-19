@@ -6,7 +6,8 @@ import org.hibernate.cfg.Configuration;
 public class AppInitializer {
     public static void main(String[] args) {
         AppInitializer app = new AppInitializer();
-        app.saveCustomer();
+       // app.saveCustomer();
+        app.findCustomer();
     }
 
     private void saveCustomer() {
@@ -24,6 +25,13 @@ public class AppInitializer {
     }
 
     private void findCustomer() {
+        Configuration configuration=
+                new Configuration().configure("hibernate.cfg.xml")
+                        .addAnnotatedClass(Customer.class);
+        SessionFactory sessionFactory= configuration.buildSessionFactory();
+        Session session = sessionFactory.openSession();
+        Customer customer = session.find(Customer.class, "1");
+        System.out.println(customer);
     }
 
     private void modifyCustomer() {

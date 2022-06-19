@@ -13,7 +13,7 @@ public class AppInitializer {
         //app.findCustomer();
         //app.modifyCustomer();
         //app.deleteCustomer();
-        //app.allCustomers();
+        app.allCustomers();
     }
 
     private void saveCustomer() {

@@ -1,6 +1,7 @@
 package entity;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Student {
@@ -11,6 +12,18 @@ public class Student {
     @OneToOne(cascade = CascadeType.ALL,
     mappedBy = "student")
     private Computer computer;
+
+    @OneToMany(cascade = CascadeType.ALL,
+    mappedBy = "student")
+    private List<Book> book;
+
+    public List<Book> getBook() {
+        return book;
+    }
+
+    public void setBook(List<Book> book) {
+        this.book = book;
+    }
 
     public String getId() {
         return id;

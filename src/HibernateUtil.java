@@ -1,5 +1,7 @@
+import entity.Book;
 import entity.Computer;
 import entity.Student;
+import entity.Subject;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.Metadata;
@@ -36,6 +38,8 @@ public class HibernateUtil {
                 .addAnnotatedClass(Customer.class)
                 .addAnnotatedClass(Student.class)
                 .addAnnotatedClass(Computer.class)
+                .addAnnotatedClass(Book.class)
+                .addAnnotatedClass(Subject.class)
                 .getMetadataBuilder()
                 .applyImplicitNamingStrategy(ImplicitNamingStrategyJpaCompliantImpl.INSTANCE)
                 .build();

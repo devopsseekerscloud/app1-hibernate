@@ -1,7 +1,9 @@
 package entity;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 public class Student {
@@ -10,18 +12,47 @@ public class Student {
     private String name;
 
     @OneToOne(cascade = CascadeType.ALL,
-    mappedBy = "student")
+            mappedBy = "student")
     private Computer computer;
 
     @OneToMany(cascade = CascadeType.ALL,
-    mappedBy = "student")
-    private List<Book> book;
+            mappedBy = "student")
+    private Set<Book> book;
 
-    public List<Book> getBook() {
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "student_subject",
+            joinColumns = {
+                    @JoinColumn(name = "student_id")
+            },
+            inverseJoinColumns = {
+                @JoinColumn(name = "subject_id")
+            }
+    )
+    Set<Subject> subjects =
+            new HashSet<>();
+
+    public Student(String id, String name, Computer computer, Set<Book> book, Set<Subject> subjects) {
+        this.id = id;
+        this.name = name;
+        this.computer = computer;
+        this.book = book;
+        this.subjects = subjects;
+    }
+
+    public Set<Subject> getSubjects() {
+        return subjects;
+    }
+
+    public void setSubjects(Set<Subject> subjects) {
+        this.subjects = subjects;
+    }
+
+    private Set<Book> getBook() {
         return book;
     }
 
-    public void setBook(List<Book> book) {
+    public void setBook(Set<Book> book) {
         this.book = book;
     }
 

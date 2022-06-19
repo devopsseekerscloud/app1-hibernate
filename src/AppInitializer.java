@@ -8,7 +8,8 @@ public class AppInitializer {
         AppInitializer app = new AppInitializer();
         //app.saveCustomer();
         //app.findCustomer();
-        app.modifyCustomer();
+        //app.modifyCustomer();
+        app.deleteCustomer();
     }
 
     private void saveCustomer() {
@@ -50,6 +51,16 @@ public class AppInitializer {
     }
 
     private void deleteCustomer() {
+        Configuration configuration =
+                new Configuration().configure("hibernate.cfg.xml")
+                        .addAnnotatedClass(Customer.class);
+        SessionFactory sessionFactory = configuration.buildSessionFactory();
+        Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
+        session.delete(session.find(Customer.class,"1"));
+        transaction.commit();
+        session.close();
+        sessionFactory.close();
     }
 
     private void allCustomers() {
